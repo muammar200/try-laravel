@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ammar Blog | Home</title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('container')
     <h1>Halaman About</h1>
-    <p><?=$name;?></p>
-    <p><?=$email;?></p>
-    <p><?=$age;?></p>
-</body>
-</html>
+    <p>{{ $name }}</p>
+    <p>{{ $email }}</p>
+    <img src="img/muammar.png" alt="muammar" width="200px">   
+@endsection
