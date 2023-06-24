@@ -37,4 +37,10 @@ Route::get('/about', function () {
 Route::get('/posts', [PostController::class, 'index']);
 
 // Page Single Post
-Route::get('posts/{slug}', [PostController::class, 'show']);
+// Route::get('posts/{slug}', [PostController::class, 'show']);
+
+// Pada kode route di bawah, ketika kita meroute {post:slug}, maka secara otomatis akan mencari id nya sebagai identifier pada tabel database
+// Route::get('posts/{post:slug}', [PostController::class, 'show']);
+
+// Pada kode di bawah, kita menentukan bahwa yang akan dicari adalah atribute slug pada tabel db, bukan id nya
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
