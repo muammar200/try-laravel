@@ -18,4 +18,11 @@ class Post extends Model
     protected $guarded = ['id'];
 
     // Kedua cara di atas dapat dilakukan, pilih mana yang diinginkan
-}
+
+    // Untuk membuat relasi antar model/tabel. Relasi yang digunakan yaitu One to One. Di mana 1 post hanya bisa memiliki satu kategori
+    public function category()
+    {
+        return $this->belongsTo(Category::class); 
+    }
+        
+    }
