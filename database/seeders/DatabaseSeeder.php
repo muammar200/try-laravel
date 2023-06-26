@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\User;
+use App\Models\Post;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,9 +18,52 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::create([
+            'name' => 'Muammar',
+            'email' => 'test@example.com',
+            'password' => bcrypt('12345')
+        ]);
+
+        User::create([
+            'name' => 'Test User',
+            'email' => 'test2@example.com',
+            'password' => bcrypt('12345')
+        ]);
+
+        Category::create([
+            'name' => 'Programming',
+            'slug' => 'programming',
+        ]);
+
+        Category::create([
+            'name' => 'Web Desigin',
+            'slug' => 'web-design',
+        ]);
+
+        Post::create([
+            'user_id' => 1,
+            'category_id' => 1,
+            'title' => 'Judul Pertama',
+            'slug' => 'judul-pertama',
+            'excerpt' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi!',
+            'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime excepturi suscipit provident impedit earum aliquid amet hic tempore a aperiam. Accusamus quibusdam vero rem ratione nam, totam sed saepe quidem, sunt tenetur ut accusantium, asperiores tempora eum quas inventore iure natus temporibus suscipit magnam voluptate libero? Ipsam, nostrum sint voluptatibus aspernatur aperiam officia officiis obcaecati repellendus quos voluptas reprehenderit eligendi id pariatur quo ex corporis eum possimus recusandae. Vel illo quod architecto expedita explicabo eaque esse corrupti voluptatem illum doloribus?'
+        ]);
+        Post::create([
+            'user_id' => 1,
+            'category_id' => 1,
+            'title' => 'Judul Kedua',
+            'slug' => 'judul-kedua',
+            'excerpt' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi!',
+            'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime excepturi suscipit provident impedit earum aliquid amet hic tempore a aperiam. Accusamus quibusdam vero rem ratione nam, totam sed saepe quidem, sunt tenetur ut accusantium, asperiores tempora eum quas inventore iure natus temporibus suscipit magnam voluptate libero? Ipsam, nostrum sint voluptatibus aspernatur aperiam officia officiis obcaecati repellendus quos voluptas reprehenderit eligendi id pariatur quo ex corporis eum possimus recusandae. Vel illo quod architecto expedita explicabo eaque esse corrupti voluptatem illum doloribus?'
+        ]);
+        Post::create([
+            'user_id' => 2,
+            'category_id' => 2,
+            'title' => 'Judul Ketiga',
+            'slug' => 'judul-ketiga',
+            'excerpt' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi!',
+            'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis ducimus quidem natus ullam labore cum quibusdam repellat eius est animi! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime excepturi suscipit provident impedit earum aliquid amet hic tempore a aperiam. Accusamus quibusdam vero rem ratione nam, totam sed saepe quidem, sunt tenetur ut accusantium, asperiores tempora eum quas inventore iure natus temporibus suscipit magnam voluptate libero? Ipsam, nostrum sint voluptatibus aspernatur aperiam officia officiis obcaecati repellendus quos voluptas reprehenderit eligendi id pariatur quo ex corporis eum possimus recusandae. Vel illo quod architecto expedita explicabo eaque esse corrupti voluptatem illum doloribus?'
+        ]);
     }
 }
+

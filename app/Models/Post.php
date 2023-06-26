@@ -24,5 +24,16 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class); 
     }
-        
+
+    // Pada kode relasi dengan Model User di bawah, memiliki arti yaitu : 1 Post hanya bisa dimiliki oleh 1 User
+
+    // Cari tau kenapa harus menggunakan nama function user untuk melakukan relasi dengan Model User, kenapa tidak bisa mengggunakan nama function yang lain?
+    // public function author(){
+    //     return $this->belongsTo(User::class);
+    // }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
+        
+}

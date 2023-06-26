@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Pada kode relasi dengan Model Post di bawah, memiliki arti yaitu : 1 user bisa memiliki banyak post
+    // Cari tau juge kenapa harus menggunakan function dengan nama posts
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }
