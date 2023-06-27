@@ -11,8 +11,8 @@ class PostController extends Controller
         return view('posts', [
             "title" => "Posts",
             // Di bawah telah menggunakan class dari model dengan memanggil function all()
-            "posts" => Post::all()
-            //penggunaan namespace juga bisa seperti di atas
+            // "posts" => Post::all()
+            "posts" => Post::latest()->get() //Menampilkan data terbaru ada di paling atas
         ]);
     }
 

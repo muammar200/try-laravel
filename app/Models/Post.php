@@ -32,8 +32,18 @@ class Post extends Model
     //     return $this->belongsTo(User::class);
     // }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function author(){
+        return $this->belongsTo(User::class, 'user_id');
     }
+    // Saat ingin membuat relasi, tapi nama function nya tidak sesuai dengan foreignKey pada tabel yang dimaksud, maka dibutuhkan alias. Pada contoh di atas kita menggunakan nama function author yang merujuk pada foreign key user_id yang ada pada posts_table migrations (atau pada database)
+    //Contoh data yang ada di posts_table migrations
+    /* 
+            $table->id();
+            $table->foreignId('category_id');
+            $table->foreignId('user_id'); *INI ADALAH foreignKey YANG DIMAKSUD
+            ...
+            ...
+            ...
+    */    
         
 }
