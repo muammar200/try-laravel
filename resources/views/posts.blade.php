@@ -5,8 +5,14 @@
 
 @section('container')
     <h1 class="mb-5">
-        Halaman Blog Posts    
+        {{ $title }}
     </h1>
+    <?php 
+        if($seeAll){
+            echo "<a href='/categories'>$seeAll</a>";
+        } 
+    ?>
+
     @foreach ($posts as $post)
     <article class="mb-5 border-bottom pb-4">
         {{-- Kode di bawah mengakses data menggunakan notasi array --}}
