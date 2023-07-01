@@ -17,6 +17,9 @@ class Post extends Model
     // Protected $guarded = untuk mengatur attribute mana saja yang tidak dapat diisi ketika menjalankan create
     protected $guarded = ['id'];
 
+    // Kode di bawah digunakan sebagai eager load tanpa harus menuliskannya di Controller. Cukup di Modelnya saja. Ingat, harus menggunakan atribut/propert $with
+    protected $with = ['category', 'author'];
+
     // Kedua cara di atas dapat dilakukan, pilih mana yang diinginkan
 
     // Untuk membuat relasi antar model/tabel. Relasi yang digunakan yaitu One to One. Di mana 1 post hanya bisa memiliki satu kategori

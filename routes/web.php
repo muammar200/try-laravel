@@ -25,13 +25,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home"
+        "title" => "Home",
+        "active" => "home"
     ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
+        "active" => "about",
         "name" => "Andrei",
         "email" => "andrei@gmail.com",
         "age" => 25
@@ -67,7 +69,7 @@ Route::get('/categories/{category:slug}', function(Category $category)
         return view('posts', [
             // Kode di bawah mencocokkan {category:slug} yang dikirim oleh Route dan mengambil name yang sama yang dimiliki oleh {category:slog}. Contoh jika {category:slug} memiliki value web-design. Maka pada tabel category akan mengambil name yang memiliki id yang sama pada slug web-design 
             'title' => "Post By Category : $category->name",
-            'seeAll' => "See All Categories",
+            "active" => "categories",
             
             'posts' => $category->posts->load('category', 'author'),
             // Kode di atas mencocokkan data untuk mengambil fild yang mana saja yang memiliki kategory sesuai yang dikirim oleh parameter {category:slug}, data yang dicocokkan yaitu antara Model Category dan Model Post. Pada model Post terdapat function berikut untuk relasi ke Model (tabel database) Category

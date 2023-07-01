@@ -36,11 +36,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Category::create([
-            'name' => 'Web Desigin',
+            'name' => 'Cloud Computing',
+            'slug' => 'cloud-computing',
+        ]);
+
+        Category::create([
+            'name' => 'Web Design',
             'slug' => 'web-design',
         ]);
 
-        Post::factory(24)->create();
+        Post::factory(30)->create();
 
         // Post::create([
         //     'user_id' => 1,
