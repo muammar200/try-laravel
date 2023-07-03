@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class Post extends Model
 {
@@ -48,5 +49,41 @@ class Post extends Model
             ...
             ...
     */    
+
+    
+    // FUNCTION UNTUK PENCARIAN
+    public function scopeFilter($query, array $filters){ //Memang diperlukan 2 parameter untk menggunakan scope Function. Parameter pertama yakni $query saya tidak tau apa isinya secara detail karena ketika saya var_dump hasilnya yaitu kumpulan data yang sangat banyak dan saya tidak tau cara membacanya. Untuk paramter yang kedua, merupakan paramater yang diterima oleh request pada Post Controller
+
+        // Query untuk mencari blog berdasarkan judul dan isinya
+        $query->when($filters['search']  ?? false, function($query, $search){
+            return $query->where(function($query) use ($search){
+                return $query->where(   'title', 'like', '%' . $search . '%')
+                ->orWhere('content', 'like', '%' . $search . '%');
+            });  
+        });
+
+        // Query untuk mencari blog berdasarkan kategorinya
+        $query->when($filters['category'] ?? false, function($query, $category){
+            return $query->whereHas('category', function($query) use ($category){ //parameter 'category' yang ada pada function whereHas adalah method category yang ada di halaman ini. Di mana method category tersebut berfungsi untuk mengatur relasi antara tabel post dan tabel category. Fucntion whereHas() sendiri berguna untuk melakukan join antara tabel category dan tabel post agar pencarian post berdasarkan kategori dapat dilakukan. whereHas juga adalah penyederhanaan yang dilakukan Laravel untuk join table.
+            //lalu kata kunci use digunakan agar parameter $category dapat dipakai
+            // var_dump($category); die();
+                $query->where('slug', $category); 
+                //lalu kode di atas yaitu mencocokkan antara slug dan $category(berisi apa yang dicari oleh user). 'slug' berisi data slug yang ada pada tabel category
+            });
+        });
+
+        // Query untuk mencari blog berdasarkan penulisnya
+        // $query->when($filters['author'] ?? false, fn($query, $author) =>
+        //     $query->whereHas('author', fn($query) =>
+        //         $query->where('username', $author)
+        //     )
+        //  );
+        
+        $query->when($filters['author'] ?? false, function($query, $author){
+            return $query->whereHas('author', function($query) use ($author){ 
+                $query->where('username', $author); 
+            });
+        });
+    }
         
 }
