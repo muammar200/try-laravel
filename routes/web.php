@@ -5,6 +5,8 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Post;
 use App\Models\Category;
 // use App\Models\User;
@@ -81,3 +83,6 @@ Route::get('/categories', [CategoryController::class, 'index']);
 // });
 
 // Route::get('/authors/{author:username}', [AuthorController::class, 'index']); 
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
