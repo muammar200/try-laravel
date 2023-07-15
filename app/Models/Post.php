@@ -5,10 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Expr\FuncCall;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
-    use HasFactory;
+
+    use HasFactory, Sluggable;
+
+    // method sluggable
+    // source : https://github.com/cviebrock/eloquent-sluggable
+
+    // Ask ChatGPT
+    //Kode di bawah merupakan fungsi yang mengembalikan sebuah array. Fungsi ini mungkin masih berhubungan dengan pembuatan slug untuk URL yang ramah mesin. Mari kita bahas penjelasan kode tersebut:
+    // - Fungsi ini juga disebut "sluggable" dan mengembalikan sebuah array.
+    // - Array ini berisi satu elemen dengan kunci "slug".
+    // - Nilai dari kunci "slug" adalah sebuah array yang memiliki satu elemen dengan kunci "source".
+    // - Nilai dari kunci "source" adalah string "title".
+    // Dalam hal ini, kode tersebut menunjukkan bahwa slug yang akan dibuat didasarkan pada properti "title". Dengan kata lain, jika Anda memiliki suatu objek atau data yang memiliki properti "title", fungsi ini mungkin akan mengambil nilai dari properti tersebut dan menggunakan nilainya untuk membuat slug yang sesuai dengan aturan yang telah ditetapkan.
+    public function sluggable(): array
+    {  
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     // Diperlukan kode di bawah agar bisa melakukan create penambahan data/update data pada tabel database
     
