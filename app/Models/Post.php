@@ -85,5 +85,11 @@ class Post extends Model
             });
         });
     }
-        
+    
+    //method di bawah adalah method dari dokumentasi. Route Model Binding->Customizing The Key
+    public function getRouteKeyName(): string
+    {
+        //sederhananya, setiap route akan mencari slug, bukan lagi id. Defaultnya adalah slug, bukan lagi id
+        return 'slug';
+    }   
 }

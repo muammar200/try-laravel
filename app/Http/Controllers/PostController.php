@@ -29,7 +29,7 @@ class PostController extends Controller
 
         return view('posts', [
             "title" => "All Posts" . $title,
-            "active" => "posts",
+            // "active" => "posts",
             "seeAll" => NULL,
             // Di bawah telah menggunakan class dari model POST dengan memanggil function all()
             // "posts" => Post::all()
@@ -56,7 +56,7 @@ class PostController extends Controller
         // die();
         return view('post',[
             "title" => "Single Post",
-            "active" => "posts",
+            // "active" => "posts",
             "post" => $post
            ]);
     }

@@ -7,7 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 use App\Models\Post;
 use App\Models\Category;
 // use App\Models\User;
@@ -28,15 +28,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home",
-        "active" => "home"
+        "title" => "Home"
     ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
-        "active" => "about",
         "name" => "Andrei",
         "email" => "andrei@gmail.com",
         "age" => 25
@@ -51,7 +49,7 @@ Route::get('/posts', [PostController::class, 'index']);
 // Pada kode route di bawah, ketika kita meroute {post:slug}, maka secara otomatis akan mencari id nya sebagai identifier pada tabel database
 // Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-// Pada kode di bawah, kita menentukan bahwa yang akan dicari adalah atribute slug pada tabel db, bukan id nya
+// Pada kode di bawah, merupakan route model binding. Kita menentukan bahwa yang akan dicari adalah atribute slug pada tabel db, bukan id nya. 
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
 
@@ -94,5 +92,11 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-// Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', function(){
+    return view('dashboard.index');
+});
+
+// Di bawah adalah penggunaan Resource Controllers
+Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+ 
