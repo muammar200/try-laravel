@@ -6,6 +6,12 @@
 </div>
 
 <div class="table-responsive small col-lg-8">
+  @if (session()->has('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close ms-auto me-0" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
   <a href="/dashboard/posts/create">Create New Post</a>
   <table class="table table-striped table-sm">
     <thead>

@@ -97,6 +97,9 @@ Route::get('/dashboard', function(){
     return view('dashboard.index');
 });
 
+// create slug route
+Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
+
 // Di bawah adalah penggunaan Resource Controllers
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
  

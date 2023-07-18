@@ -49,5 +49,5 @@
     </symbol>
   </svg>
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-4  text-white" href="#">Ammar Blog</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-4  text-white" href="/">Ammar Blog</a>
   </header>

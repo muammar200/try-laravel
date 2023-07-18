@@ -17,7 +17,7 @@
                 {!! $post->content !!}
             </article>
 
-            <a href="/posts" class="text-decoration-none d-block mt-3">Back to Posts</a>
+            <a href="/dashboard/posts" class="text-decoration-none d-block mt-3">Back to Posts</a>
         </div>
     </div>
 </div>
