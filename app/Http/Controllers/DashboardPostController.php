@@ -42,8 +42,16 @@ class DashboardPostController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts', //unique:posts = digunakan untuk memastikan bahwa nilai yang diberikan untuk field slug harus unik dalam tabel posts pada basis data.
             'category_id' => 'required',
+            'image' => 'image|file|max:1024',
             'content' => 'required'
         ]);
+
+        // validasi gambar
+        // kondisi di bawah mengecek jika ada request file yang dikirim dengan name image maka kondisi di bawah akan dilakukan. 
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
+        // dan jika kondisi di atas tidak terpenuhi maka Post::create($validatedData) tidak akan mengisi kolom image pada database karena tidak ada gambar yang dikirimkan
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->content), 200);

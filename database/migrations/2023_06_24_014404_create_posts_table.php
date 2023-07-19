@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('excerpt');
+            $table->string('image')->nullable();
+            // nullable : boleh kosong
             $table->text('content');
             // atribut di bawah digunakan untuk merecord kapan blog nya dipublish. Dan field nya boleh kosong (nullable()). Merupakan tipe data
             $table->timestamp('published_at')->nullable();
