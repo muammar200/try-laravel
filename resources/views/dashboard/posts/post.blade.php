@@ -7,8 +7,15 @@
         <div class="col-md-8">
             <h1 class="mb-3">{{ $post->title }}</h1>
             <a href="/dashboard/posts">Back To Post</a>
-            <a href="">Edit</a>
-            <a href="">Delete</a>
+            <a href="/dashboard/posts/{{ $post->slug }}/edit">Update</a>
+            {{-- cari cara, bagaimana kalau saat mengupdate di halaman post.blade.php(single post), saat masuk di form update, kemudian button update diklik, akan redirect ke halaman single post, jangan halaman my posts --}}
+            <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+                @method('delete')
+                @csrf
+                <button onclick="return confirm('Are you sure?')">
+                  Delete
+                </button>
+            </form>
 
             <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" class="card-img-top"
                 alt="{{ $post->category->name }}">

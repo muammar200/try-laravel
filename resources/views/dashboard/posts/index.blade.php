@@ -5,13 +5,14 @@
   <h1 class="h2">My Posts</h1>
 </div>
 
+@if (session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+      {{ session('success') }}
+      <button type="button" class="btn-close ms-auto me-0" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
 <div class="table-responsive small col-lg-8">
-  @if (session()->has('success'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close ms-auto me-0" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      @endif
   <a href="/dashboard/posts/create">Create New Post</a>
   <table class="table table-striped table-sm">
     <thead>
@@ -32,8 +33,15 @@
       <td>{{ $post->category->name }}</td>
       <td>
         <a href="/dashboard/posts/{{ $post->slug }}">Lihat</a>
-        <a href="">Update</a>
-        <a href="">Delete</a>
+        {{-- link pada tag a di bawah adalah aturan default untuk mengakses method edit pada resource DashboardPostController --}}
+        <a href="/dashboard/posts/{{ $post->slug }}/edit">Update</a>
+        <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+            @method('delete')
+            @csrf
+            <button onclick="return confirm('Are you sure?')">
+              Delete
+            </button>
+        </form>
       </td>
     </tr> 
     @endforeach
