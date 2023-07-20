@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller
 {
@@ -38,11 +39,12 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
+        // validasi data yang diinputkan
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts', //unique:posts = digunakan untuk memastikan bahwa nilai yang diberikan untuk field slug harus unik dalam tabel posts pada basis data.
             'category_id' => 'required',
-            'image' => 'image|file|max:1024',
+            'image' => 'image|file|max:1024', //min : minimal size gambar, max : maksimal size gambar, size : size gambar harus segitu ukuran filenya agar dapat diupload. Untuk lebih lengkap, cek dokumentasi
             'content' => 'required'
         ]);
 
@@ -93,15 +95,27 @@ class DashboardPostController extends Controller
         $rules = [
             'title' =>'required|max:255',
             'category_id' => 'required',
-            'content' => 'required'
+            'image' => 'image|file|max:1024',
+            'content' => 'required',
         ];
+
         
         if($request->slug != $post->slug){
-            $rules['slug'] ='required|unique:posts,slug';
+            $rules['slug'] ='required|unique:posts';
         }
-
-
+        
+        // validasi data
         $validatedData = $request->validate($rules);
+        // jika validasi data di atas lolos, maka akan menjalankan kode di bawah
+        // var_dump($validatedData); die();
+        
+        if($request->file('image')){
+            //kondisi untuk menghapus gambar pada post jika sudah ada gambar sebelumnya
+            if ($post->image != null) {
+                Storage::delete($post->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->content), 200);
@@ -117,6 +131,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // kondisi untuk menghapus gambar di storage saat postingan di delete
+        if ($post->image != null) {
+            Storage::delete($post->image);
+        }
+
         Post::destroy($post->id);
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted!');
     }

@@ -6,7 +6,7 @@
 </div>
 
 <div class="col-lg-8">
-    <form method="POST" action="/dashboard/posts/{{ $post->slug }}">
+    <form method="POST" action="/dashboard/posts/{{ $post->slug }}" enctype="multipart/form-data">
         {{-- method di bawah digunakan agar form bisa mengakses method update pada DashboardPostController --}}
         @method('put')
         @csrf
@@ -42,6 +42,22 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Post Image</label>
+            {{-- di bawah adalah kondisi untuk menampilkan gambar jika sudah ada atau tidak ada --}}
+            @if ($post->image)
+            <img src="{{ asset('storage/' . $post->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">    
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+            @endif
+            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()"> 
+            {{-- property onchange pada tag input di atas, dibuat agar jika ada perubahan dalam tag input. Semisal yang tadinya input file kosong menjadi ada, maka property onchange akan berjalan dengan memanggil function previewImage() --}}
+            @error('image')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+          </div>
         {{-- penggunaan editor text : Trix--}}
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
@@ -82,6 +98,20 @@
     document.addEventListener('trix-file-accept', function (e) {
         e.preventDefault();
     })
+
+    function previewImage(){
+        const image = document.querySelector('#image');
+        const imagePreview = document.querySelector('.img-preview');
+
+        imagePreview.style.display = 'block';
+
+        const ammar = new FileReader();
+        ammar.readAsDataURL(image.files[0]);
+
+        ammar.onload = function(muammar){
+            imagePreview.src = muammar.target.result;
+        }
+    }
 
 </script>
 

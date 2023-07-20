@@ -41,7 +41,9 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Post Image</label>
-            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()"> 
+            {{-- property onchange pada tag input di atas, dibuat agar jika ada perubahan dalam tag input. Semisal yang tadinya input file kosong menjadi ada, maka property onchange akan berjalan dengan memanggil function previewImage() --}}
             @error('image')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -50,7 +52,7 @@
           </div>
         {{-- penggunaan editor text : Trix--}}
         <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
+            <label for="content" class="form-label">Content</label> 
             @error('content')
             <p class="text-danger">{{ $message }}</p>
             @enderror
@@ -88,6 +90,22 @@
     document.addEventListener('trix-file-accept', function (e) {
         e.preventDefault();
     })
+
+    // script untuk memunculkan gambar yang diupload
+    // pelajari baik-baik javascript
+    function previewImage(){
+        const image = document.querySelector('#image');
+        const imagePreview = document.querySelector('.img-preview');
+
+        imagePreview.style.display = 'block';
+
+        const ammar = new FileReader();
+        ammar.readAsDataURL(image.files[0]);
+
+        ammar.onload = function(muammar){
+            imagePreview.src = muammar.target.result;
+        }
+    }
 
 </script>
 
