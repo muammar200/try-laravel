@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // User::create([
         //     'name' => 'Muammar',
         //     'username' => 'muammar',
-        //     'email' => 'test@example.com',
+        //     'email' => 'ammar@gmail.com',
         //     'password' => bcrypt('password')
         // ]);
 
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'web-design',
         ]);
 
-        // Post::factory(20)->create();
+        // Post::factory(100)->create();
 
         // Post::create([
         //     'user_id' => 1,

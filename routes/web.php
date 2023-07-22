@@ -2,6 +2,7 @@
 
 // Cara menggunakan extension PHP Namespace Resolver, memudahkan import namespace : klik kanan -> import All Classes
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
@@ -102,4 +103,8 @@ Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'check
 
 // Di bawah adalah penggunaan Resource Controllers
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
+
+
  
